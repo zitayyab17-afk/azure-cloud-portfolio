@@ -1,0 +1,5 @@
+name: Deploy Azure static website
+on:
+push:
+branches:
+-main
