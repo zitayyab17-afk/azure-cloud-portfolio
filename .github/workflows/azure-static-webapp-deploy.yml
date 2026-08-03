@@ -2,7 +2,10 @@ name: Deploy Azure static website
 on:
   push:
     branches:
-      -main
+      - main
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/Checkout@v4
