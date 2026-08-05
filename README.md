@@ -121,6 +121,17 @@ Azure-Portfolio/
 ├── README.md
 └── .gitignore
 
+## 📸 Project Screenshots
+
+Live Portfolio Homepage
+azure-portfolio-homepage.jpeg
+
+Projects Section
+azure-portfolio-projects.jpeg
+
+Successful GitHub Actions Deployment
+github-actions-success.jpeg
+
 ## 🧩 Challenges & Troubleshooting
 
 Several real deployment issues were encountered and resolved during the project.
