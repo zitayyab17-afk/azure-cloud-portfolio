@@ -132,6 +132,9 @@ Azure-Portfolio/
 ### Successful GitHub Actions Deployment
 ![GitHub Actions Successful Deployment](screenshots/github-actions-success.jpeg)
 
+### Project Architecture Diagram
+![Azure cloud portfolio architecture](screenshots/azure-portfolio-architecture.png)
+
 ## 🧩 Challenges & Troubleshooting
 
 Several real deployment issues were encountered and resolved during the project.
