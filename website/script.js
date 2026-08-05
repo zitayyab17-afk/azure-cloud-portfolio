@@ -29,7 +29,7 @@ const projects = [
         "OIDC"
     ],
         status: "Completed",
-        githubLink: "https://github.com/zitayyab17-afk/azure-portfolio",
+        githubLink: "https://github.com/zitayyab17-afk/azure-cloud-portfolio.git",
         liveLink: "https://stazureportfoliob001.z33.web.core.windows.net/"
     },
     {
@@ -41,7 +41,7 @@ const projects = [
             "DynamoDB"
         ],
         status: "InProgress",
-        githubLink: "https://github.com/zitayyab17-afk/azure-portfolio",
+        githubLink: "https://github.com/zitayyab17-afk/project2-serverless-api.git",
         liveLink: "https://stazureportfoliob001.z33.web.core.windows.net/"
     }
 ];
