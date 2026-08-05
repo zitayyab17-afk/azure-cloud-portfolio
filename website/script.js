@@ -21,8 +21,12 @@ const projects = [
         description: "Hosted a static wbsite using Azure Storage",
          services: [
         "Azure Storage",
-        "Terraform",
-        "GitHub Actions"
+        "Azure Static Website Hosting",
+        "GitHub Actions",
+        "Azure CLI",
+        "Microsoft Entra ID",
+        "Azure RBAC",
+        "OIDC"
     ],
         status: "Completed",
         githubLink: "https://github.com/zitayyab17-afk/azure-portfolio",
@@ -52,7 +56,7 @@ projects.forEach(function(project){
     <h3>${project.name}</h3>
     <h4>Description:</h4>
     <p> ${project.description}</p>
-    <h4>Cloud Services Used:</h4>
+    <h4>Technologies And Services:</h4>
 
 <div class="tech-container">
     ${servicesHTML}
