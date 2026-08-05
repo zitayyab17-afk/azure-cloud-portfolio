@@ -123,14 +123,14 @@ Azure-Portfolio/
 
 ## 📸 Project Screenshots
 
-Live Portfolio Homepage
-screenshots/azure-portfolio-homepage.jpeg
+### Live Portfolio Homepage
+![Azure Portfolio Homepage](screenshots/azure-portfolio-homepage.jpeg)
 
-Projects Section
-screenshots/azure-portfolio-projects.jpeg
+### Projects Section
+![Azure Portfolio Projects](screenshots/azure-portfolio-projects.jpeg)
 
-Successful GitHub Actions Deployment
-screenshots/github-actions-success.jpeg
+### Successful GitHub Actions Deployment
+![GitHub Actions Successful Deployment](screenshots/github-actions-success.jpeg)
 
 ## 🧩 Challenges & Troubleshooting
 
