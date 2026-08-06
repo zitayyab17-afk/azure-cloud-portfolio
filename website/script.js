@@ -84,11 +84,11 @@ projects.forEach(function(project){
     `;
     projectContainer.innerHTML += card
 });
-const contactForm = document.querySelector("#contact-form");
+    const contactForm = document.querySelector("#contact-form");
 contactForm.addEventListener("submit", function(event){
     event.preventDefault();
-})
-const nameInput = document.querySelector("#name");
+    const nameInput = document.querySelector("#name");
 if(nameInput.value.trim() === ""){
     alert("Please Enter Your Name");
-}
+    }
+});
