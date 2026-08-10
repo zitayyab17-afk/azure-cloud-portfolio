@@ -85,10 +85,54 @@ projects.forEach(function(project){
     projectContainer.innerHTML += card
 });
     const contactForm = document.querySelector("#contact-form");
-contactForm.addEventListener("submit", function(event){
+contactForm.addEventListener("submit", async function(event){
     event.preventDefault();
     const nameInput = document.querySelector("#name");
 if(nameInput.value.trim() === ""){
     alert("Please Enter Your Name");
+    return;
     }
+    const emailInput = document.querySelector("#email");
+    if(emailInput.value.trim() === ""){
+        alert("Please Enter Your Email");
+        return;
+    }
+    if(!emailInput.value.includes("@")){
+        alert("Please Enter Your Valid Email");
+        return;
+    }
+    const subjectInput = document.querySelector("#subject")
+    if(subjectInput.value.trim() === ""){
+        alert("Please Entre Subject");
+    return;
+    }
+    const messageInput = document.querySelector("#message")
+    if (messageInput.value.trim() === ""){
+        alert("Please Enter Message");
+        return;
+    }
+
+    const formData = {
+        name: nameInput.value.trim(),
+        email: emailInput.value.trim(),
+        subject: subjectInput.value.trim(),
+        message: messageInput.value.trim()
+    };
+    const response = await fetch(
+        "https://func-azure-portfolio-contact-b001-d8a4cxdkbhcsbza6.ukwest-01.azurewebsites.net/api/ContactFormFunction",
+        {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(formData)
+        }
+    );
+    const result = await response.json();
+
+if (result.success) {
+    alert("Message sent successfully!");
+    contactForm.reset();
+}
+        
 });
