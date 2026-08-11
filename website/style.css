@@ -214,3 +214,68 @@ footer {
     border: none;
     cursor: pointer;
 }
+#about {
+    text-align: center;
+}
+
+#about p {
+    max-width: 850px;
+    margin: 0 auto;
+    font-size: 18px;
+    line-height: 1.8;
+}
+
+#skills {
+    text-align: center;
+}
+
+#skills-list {
+    max-width: 900px;
+    margin: 30px auto 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 18px;
+}
+
+#skills-list li {
+    margin-bottom: 0;
+    padding: 18px 12px;
+    background-color: #f5f7fa;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-weight: bold;
+}
+#certifications {
+    text-align: center;
+}
+
+.certifications-container {
+    max-width: 900px;
+    margin: 30px auto 0;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+}
+
+.certification-card {
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 25px;
+    background-color: #f8f9fa;
+}
+
+.certification-card h3 {
+    color: #0078D4;
+    margin-bottom: 10px;
+}
+
+.certification-card p {
+    margin-bottom: 8px;
+}
+
+@media (max-width: 768px) {
+    .certifications-container {
+        grid-template-columns: 1fr;
+    }
+}

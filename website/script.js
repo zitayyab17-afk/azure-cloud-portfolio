@@ -17,32 +17,59 @@ skills.forEach(function(skill){
 
 const projects = [
     {
-        name: "Azure Static Website",
-        description: "Hosted a static wbsite using Azure Storage",
+        name: "Azure Cloud Portfolio",
+        description: "Built and Deploy a Cloud portfolio on Microsoft Azure with CI/CD and a serverless Contact Form that send message directly to my email",
          services: [
         "Azure Storage",
         "Azure Static Website Hosting",
+        "Azure Function",
+        "Azure Communication Services",
+        "Application insight",
         "GitHub Actions",
         "Azure CLI",
         "Microsoft Entra ID",
         "Azure RBAC",
-        "OIDC"
+        "OIDC",
+        "JavaScrips",
+        "Node.js"
     ],
         status: "Completed",
         githubLink: "https://github.com/zitayyab17-afk/azure-cloud-portfolio.git",
         liveLink: "https://stazureportfoliob001.z33.web.core.windows.net/"
     },
+
     {
-        name: "Serverless API",
-        description: "Built a backend API using Azure serverless services.",
+        name: "AWS Static Website with Terraform",
+        description: "Hosted a multi-page static website on AWS using a private S3 bucket and CloudFront, with infrastructure provisioned through Terraform and automated deployment using GitHub Actions.",
         services: [
-            "Azure Functions",
-            "API Gateway",
-            "DynamoDB"
+            "Amazon S3",
+            "Amazon CloudFront",
+            "Terraform",
+            "GitHub Actions",
+            "IAM",
+            "GitHub Secrets",
+            "S3 Remote Backend",
+            "DynamoDB State Locking",
+            "CloudFront Cache Invalidation",
+            "S3 Server-Side Encryption"
+        ],
+        status: "Completed",
+        githubLink: "https://github.com/zitayyab17-afk/zunaisha-terraform-website",
+        liveLink: ""
+    },
+
+    {
+        name: "AWS Serverless REST API",
+        description: "Built a Serverless REST API on AWS using API Gateway, Lambda And DynamoDB.",
+        services: [
+            "AWS Lambda",
+            "AWS API Gateway",
+            "Amazon DynamoDB",
+            "Terraform"
         ],
         status: "InProgress",
         githubLink: "https://github.com/zitayyab17-afk/project2-serverless-api.git",
-        liveLink: "https://stazureportfoliob001.z33.web.core.windows.net/"
+        liveLink:""
     }
 ];
 const projectContainer = document.querySelector("#projects-container");
@@ -73,12 +100,15 @@ projects.forEach(function(project){
     View Code
     </a>
 
-<a href = "${project.liveLink}"
-    target = "_blank"
-    rel = "noopener noreferrer"
-    >
-    Live Demo
-    </a>
+${project.liveLink ? `
+<a
+href = "${project.liveLink}"
+target = "_blank"
+rel = "noopener noreferrer"
+>
+Live Demo
+</a>
+` : ""}
     </div>
     </div>
     `;
