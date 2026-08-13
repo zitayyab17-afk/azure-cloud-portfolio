@@ -1,10 +1,8 @@
-# ☁️ Azure Cloud & DevOps Portfolio
+# ☁️ Azure Cloud Portfolio
 
-A personal Cloud & DevOps portfolio built and deployed on Microsoft Azure, demonstrating hands-on experience with cloud infrastructure, serverless computing, CI/CD automation, cloud security, JavaScript and Azure services.
+A personal Cloud & DevOps portfolio built and deployed on Microsoft Azure, demonstrating hands-on experience with Azure, Terraform, CI/CD automation, cloud security, GitHub Actions, serverless computing and JavaScript.
 
-The project was built incrementally and tested locally before being deployed to Azure. It now includes an automated CI/CD pipeline and a serverless contact-form backend that sends emails using Azure Communication Services.
-
----
+The project was first built manually to understand the underlying Azure services and deployment process. I then implemented CI/CD automation and rebuilt the infrastructure in a separate environment using Terraform to develop practical Infrastructure as Code (IaC) skills.
 
 ## 🚀 Live Website
 
@@ -15,32 +13,27 @@ https://stazureportfoliob001.z33.web.core.windows.net/
 
 ## 📌 Project Overview
 
-This project demonstrates the end-to-end process of developing, deploying, securing and automating a cloud-hosted portfolio on Microsoft Azure.
+This project demonstrates the end-to-end process of building, deploying, securing and automating a cloud-hosted portfolio website on Microsoft Azure.
 
-The portfolio showcases my Cloud & DevOps projects, technical skills and professional certifications while serving as a practical environment for developing hands-on Azure and DevOps engineering skills.
+The website showcases my cloud projects, technical skills and certifications while also serving as a practical environment for developing Cloud and DevOps engineering skills.
 
-### Key Features
+The project includes:
 
-- Azure-hosted static website
-- Automated CI/CD deployment
+- Azure Static Website Hosting
+- JavaScript-based dynamic website content
+- Serverless contact form using Azure Functions
+- Email delivery using Azure Communication Services
+- GitHub Actions CI/CD
 - Passwordless GitHub-to-Azure authentication using OIDC
-- Serverless backend using Azure Functions
-- Working contact form with email delivery
-- Azure Communication Services Email integration
-- Secure environment variable management
-- CORS configuration
-- JavaScript form validation
-- Dynamic project and skills rendering
-- AWS certification credential links
-- Responsive portfolio design
+- Azure RBAC
+- Infrastructure as Code using Terraform
+- Separate Terraform-managed test environment
 
 ---
 
 ## 🏗️ Architecture
 
-The project contains two main workflows.
-
-### Website CI/CD Deployment
+### Production Deployment Flow
 
 ```text
 Developer
@@ -59,28 +52,42 @@ Azure CLI
     ↓
 Azure Storage $web Container
     ↓
-Live Portfolio Website
+Live Static Website
 ```
 
-### Serverless Contact Form
+### Serverless Contact Form Flow
 
 ```text
-Website Visitor
+Portfolio Website
     ↓
-Azure-hosted Portfolio
+Contact Form
     ↓
-JavaScript Contact Form
-    ↓
-HTTP POST Request
+JavaScript Fetch Request
     ↓
 Azure Function
     ↓
 Azure Communication Services Email
     ↓
-Email Inbox
+Email Delivered to Portfolio Owner
 ```
 
-The frontend and backend are separated so that sensitive credentials are not exposed in browser-side JavaScript.
+### Terraform Infrastructure Flow
+
+```text
+Terraform Configuration
+    ↓
+AzureRM Provider
+    ↓
+Azure Resource Group
+    ↓
+Azure Storage + Static Website
+    ↓
+Azure Function Infrastructure
+    ↓
+Flex Consumption Plan
+    ↓
+Serverless Contact Form
+```
 
 ---
 
@@ -91,175 +98,133 @@ A GitHub Actions workflow automatically deploys website changes whenever code is
 The pipeline:
 
 1. Checks out the repository.
-2. Requests an OIDC token from GitHub.
-3. Authenticates to Azure through Microsoft Entra ID.
-4. Uses Azure RBAC for authorization.
-5. Uses Azure CLI to deploy the website.
-6. Uploads the contents of the `website/` directory to the Azure Storage `$web` container.
-7. Updates the live website automatically.
+2. Authenticates to Azure using OIDC.
+3. Uses Azure CLI to deploy the website.
+4. Uploads the contents of the `website/` directory to the Azure Storage `$web` container.
+5. Updates the live website automatically.
 
-This removes the need for manual website uploads after each change.
-
----
-
-## ⚡ Serverless Contact Form
-
-The portfolio includes a working serverless contact form.
-
-The frontend collects:
-
-- Name
-- Email address
-- Subject
-- Message
-
-JavaScript validates the fields before sending the form data as JSON to an HTTP-triggered Azure Function.
-
-The Azure Function:
-
-1. Receives the HTTP POST request.
-2. Reads the submitted JSON data.
-3. Uses Azure Communication Services Email.
-4. Sends the contact message to my email inbox.
-5. Returns a success response to the frontend.
-
-After a successful response, the website displays:
-
-`Message sent successfully!`
-
-The form is then automatically cleared.
-
----
-
-## 📧 Azure Communication Services Email
-
-Azure Communication Services Email is used to deliver messages submitted through the portfolio contact form.
-
-The implementation includes:
-
-- Azure Communication Services
-- Email Communication Service
-- Azure-managed email domain
-- Connected email domain
-- Sender address
-- Azure Communication Services Email SDK
-
-The ACS connection string is **never stored in the frontend JavaScript**.
-
-During local development, it is stored in:
-
-```text
-local.settings.json
-```
-
-In Azure, it is configured as a Function App environment variable:
-
-```text
-ACS_CONNECTION_STRING
-```
-
-`local.settings.json` is excluded from source control using `.gitignore`.
-
----
-
-## 🌐 CORS Configuration
-
-Cross-Origin Resource Sharing (CORS) is configured on the Azure Function App so that the production portfolio website can communicate with the serverless backend.
-
-A localhost origin was temporarily allowed during local development and testing.
-
-After production testing was completed, the temporary local origin was removed and access was restricted to the live Azure-hosted portfolio origin.
+This removes the need for manual website uploads during normal development.
 
 ---
 
 ## 🔐 Cloud Security
 
-Security practices implemented throughout the project include:
+The project implements several cloud security practices:
 
-- Passwordless GitHub-to-Azure authentication using OIDC
+- Passwordless GitHub Actions authentication using OIDC federation
 - Microsoft Entra ID App Registration
-- Azure RBAC authorization
+- Azure RBAC for authorization
 - `Storage Blob Data Contributor` assigned at Storage Account scope
 - Principle of least privilege
-- No Azure client secret stored in the GitHub Actions workflow
-- ACS connection string stored as an environment variable
-- Local secrets excluded from source control
-- CORS restricted to the production frontend origin
-- Backend credentials never exposed in frontend JavaScript
+- No Azure client secrets stored in the GitHub Actions workflow
+- Azure Communication Services connection string stored as a Function App environment variable
+- `local.settings.json` excluded from Git
+- Terraform state files excluded from Git
+- `.tfvars` files excluded from Git
+- HTTPS enforced on Azure resources
+
+Sensitive Terraform state and local configuration files are protected through `.gitignore`.
+
+---
+
+## 🧱 Infrastructure as Code with Terraform
+
+After completing the working Azure portfolio, I rebuilt the infrastructure in a separate Terraform-managed environment.
+
+This allowed me to practise Infrastructure as Code without risking the existing working environment.
+
+Terraform provisions and manages:
+
+- Azure Resource Group
+- Azure Storage Account
+- Azure Static Website configuration
+- Dedicated Function storage account
+- Function deployment container
+- Flex Consumption Service Plan
+- Azure Function App
+- Node.js 24 runtime
+- HTTPS configuration
+- CORS configuration
+- Terraform outputs for website and Function endpoints
+
+The Terraform-managed infrastructure was successfully deployed and tested end to end.
+
+### Terraform Deployment Flow
+
+```text
+Terraform
+    ↓
+AzureRM Provider
+    ↓
+Azure Resource Group
+    ↓
+Terraform-managed Static Website
+    ↓
+Terraform-managed Azure Function
+    ↓
+Azure Communication Services
+    ↓
+Email Delivered Successfully
+```
+
+The Terraform environment was built separately rather than importing the original Azure resources. This allowed the original working project to remain available while I learned how to reproduce its infrastructure using IaC.
 
 ---
 
 ## 🛠️ Technologies Used
 
-### Microsoft Azure
+### Cloud
 
+- Microsoft Azure
 - Azure Storage
 - Azure Static Website Hosting
 - Azure Functions
 - Azure Communication Services
-- Email Communication Service
 - Microsoft Entra ID
 - Azure RBAC
-- Azure CLI
+
+### Infrastructure as Code
+
+- Terraform
+- AzureRM Provider
+- Terraform State
+- Terraform Outputs
 
 ### DevOps
 
 - Git
 - GitHub
 - GitHub Actions
+- Azure CLI
 - CI/CD
 - OIDC
 - YAML
-- Environment Variables
 
 ### Development
 
 - HTML5
 - CSS3
-- JavaScript
-- Node.js
-- Fetch API
-- HTTP
-- JSON
-- DOM Manipulation
+- JavaScript (ES6)
+- Node.js 24
 
 ---
 
 ## ✨ Website Features
 
-- Responsive Cloud & DevOps portfolio
-- Professional About Me section
-- Responsive Skills grid
-- AWS certification section
-- Official credential verification links
-- Dynamic Skills rendering using JavaScript
+- Responsive portfolio design
+- Professional About section
+- Dynamic Skills section generated using JavaScript
 - Dynamic Project Cards generated from JavaScript objects
-- Conditional Live Demo buttons
+- Cloud certification section
+- AWS credential verification links
 - GitHub repository links
-- JavaScript contact-form validation
+- Live Demo links
+- Responsive navigation
+- Modern project card layout
+- Contact form
+- JavaScript form validation
 - Serverless contact-form backend
 - Email delivery through Azure Communication Services
-- Responsive navigation
-
----
-
-## 🎓 Certifications
-
-### AWS Certified Solutions Architect – Associate
-
-**Amazon Web Services (AWS)**  
-Issued February 2026 · Expires February 2029
-
-**Verify Credential:**  
-https://www.credly.com/badges/e7b9aa6d-3081-4b13-a5d7-c6651179afae/public_url
-
-### AWS Certified Cloud Practitioner
-
-**Amazon Web Services (AWS)**  
-Issued December 2025 · Expires December 2028
-
-**Verify Credential:**  
-https://www.credly.com/badges/b16d0e15-fdb1-42a5-b182-027acfc04b5c/public_url
 
 ---
 
@@ -267,7 +232,7 @@ https://www.credly.com/badges/b16d0e15-fdb1-42a5-b182-027acfc04b5c/public_url
 
 ```text
 Azure-Portfolio/
-│
+
 ├── .github/
 │   └── workflows/
 │       └── azure-static-webapp-deploy.yml
@@ -284,16 +249,23 @@ Azure-Portfolio/
 │   │       └── ContactFormFunction.js
 │   ├── host.json
 │   ├── package.json
-│   └── local.settings.json
+│   └── package-lock.json
+│
+├── terraform/
+│   ├── provider.tf
+│   ├── main.tf
+│   ├── storage.tf
+│   ├── function.tf
+│   ├── outputs.tf
+│   └── .terraform.lock.hcl
 │
 ├── docs/
 ├── screenshots/
-├── terraform/
 ├── README.md
 └── .gitignore
 ```
 
-> `local.settings.json` is used for local development only and is excluded from Git through `.gitignore`.
+Terraform state, provider downloads and local secrets are intentionally excluded from source control.
 
 ---
 
@@ -317,15 +289,39 @@ Azure-Portfolio/
 
 ---
 
+## 🧪 End-to-End Testing
+
+The website and serverless backend were tested after deployment.
+
+The Terraform-managed environment was also tested independently.
+
+Successful Terraform test flow:
+
+```text
+Terraform-created Static Website
+        ↓
+JavaScript Contact Form
+        ↓
+Terraform-created Azure Function App
+        ↓
+Azure Communication Services
+        ↓
+Email Successfully Delivered
+```
+
+This confirmed that the independently rebuilt Terraform environment was functional end to end.
+
+---
+
 ## 🧩 Challenges & Troubleshooting
 
-Several real development and cloud deployment issues were encountered and resolved during this project.
+Several real deployment and infrastructure issues were encountered and resolved during this project.
 
 ### GitHub Actions OIDC Permission
 
-The workflow initially failed because GitHub Actions did not have permission to request an OIDC token.
+The GitHub Actions workflow initially failed because it did not have permission to request an OIDC token.
 
-This was resolved by configuring:
+Resolved by configuring:
 
 ```yaml
 permissions:
@@ -333,105 +329,105 @@ permissions:
   contents: read
 ```
 
+---
+
 ### Azure Storage Authentication
 
-Azure CLI initially failed to use the authenticated OIDC session correctly when uploading the website.
+Azure CLI initially failed to authenticate correctly when uploading website files.
 
-This was resolved by using:
+Resolved by using:
 
 ```text
 --auth-mode login
 ```
 
-so the deployment uses the authenticated OIDC session.
-
-### Azure RBAC
-
-The GitHub Actions service principal required permission to upload website files.
-
-`Storage Blob Data Contributor` was assigned at Storage Account scope rather than granting unnecessarily broad permissions.
-
-### Static Website 404
-
-The initial Azure-hosted website returned a 404 because the website files had not been correctly uploaded to the Azure Storage `$web` container.
-
-The issue was identified, the deployment was corrected, and the live endpoint was successfully verified.
-
-### Azure Functions Local Storage
-
-During local Function development, the Functions runtime reported:
-
-```text
-Unable to access AzureWebJobsStorage
-```
-
-The local development configuration was corrected before Function testing continued.
-
-### CORS
-
-During development, the browser initially blocked communication between the locally hosted frontend and Azure Function because they were running on different origins.
-
-CORS was configured to allow local testing.
-
-After the application was deployed and successfully tested in production, the temporary localhost origin was removed.
-
-### PowerShell npm Execution Policy
-
-During Azure Function deployment, Windows PowerShell attempted to execute `npm.ps1`, which was blocked by the local execution policy.
-
-The VS Code Function tasks were changed to use:
-
-```text
-npm.cmd
-```
-
-instead of:
-
-```text
-npm
-```
-
-The Function deployment then completed successfully.
+This ensures that Azure CLI uses the authenticated identity rather than relying on storage account keys.
 
 ---
 
-## 🧪 Testing
+### Azure RBAC
 
-The application was tested both locally and in production.
+The GitHub Actions identity initially required the correct permissions to upload files.
 
-### Local Testing
+The `Storage Blob Data Contributor` role was assigned at Storage Account scope rather than granting unnecessarily broad subscription-level permissions.
 
-- JavaScript form validation tested through Live Server
-- Azure Function executed locally
-- HTTP POST requests tested
-- JSON request and response flow verified
-- Azure Communication Services email delivery verified
-- Successful form reset verified
+---
 
-### Production Testing
+### Static Website 404
 
-The complete production flow was tested using the actual Azure-hosted portfolio:
+The initial website returned a 404 because the website files had not been correctly uploaded to the Azure Storage `$web` container.
+
+The issue was identified and corrected by troubleshooting the Storage Account and deployment process.
+
+---
+
+### Terraform Azure Resource Provider Registration
+
+During the Terraform implementation, the AzureRM provider initially attempted to register Azure Resource Providers automatically.
+
+The provider configuration was adjusted appropriately for the Azure environment before continuing with deployment.
+
+---
+
+### Terraform Static Website Deprecation Warning
+
+The original Terraform Storage Account configuration generated a provider warning because the inline `static_website` block was deprecated.
+
+The configuration was updated to use:
 
 ```text
-Azure Static Website
-        ↓
-JavaScript Contact Form
-        ↓
-Azure Function
-        ↓
-Azure Communication Services Email
-        ↓
-Email Inbox
+azurerm_storage_account_static_website
 ```
 
-The final production test confirmed:
+as a separate Terraform resource.
 
-- Contact form submission succeeds
-- Azure Function executes successfully
-- Email is delivered to the inbox
-- Success message appears
-- Form clears after successful submission
-- Production CORS configuration works correctly
+---
+
+### Terraform and Manually Managed Settings
+
+The Azure Communication Services connection string was intentionally kept outside the Terraform source code to prevent secrets from being committed to Git.
+
+Terraform lifecycle configuration was used so that manually managed Function App settings were not removed during subsequent Terraform deployments.
+
+CORS configuration was moved into Terraform so that it could be managed as infrastructure code.
+
+---
+
+### Azure Function Deployment
+
+The Terraform-created Function App initially existed successfully but the Function was not visible in Azure.
+
+The Function project was deployed using Azure Functions Core Tools:
+
+```text
+func azure functionapp publish func-terraform-portfolio-b001
+```
+
+The deployment completed successfully and Azure discovered:
+
+```text
+ContactFormFunction - [httpTrigger]
+```
+
+---
+
+### Node.js Runtime Upgrade
+
+During Function deployment, Azure reported that Node.js 20 was no longer supported.
+
+The Terraform configuration was updated from:
+
+```text
+Node.js 20
+```
+
+to:
+
+```text
+Node.js 24
+```
+
+Terraform then performed an in-place update without destroying the Function App.
 
 ---
 
@@ -439,48 +435,104 @@ The final production test confirmed:
 
 Through this project I gained hands-on experience with:
 
-- Azure Storage and Static Website Hosting
+### Azure
+
+- Azure Resource Groups
+- Azure Storage Accounts
+- Azure Static Website Hosting
 - Azure Functions
-- Serverless architecture
+- Flex Consumption
 - Azure Communication Services
-- CI/CD pipeline implementation
-- GitHub Actions workflows
-- Git and GitHub
-- Azure CLI
 - Microsoft Entra ID
-- OIDC federation
 - Azure RBAC
-- Least-privilege cloud security
-- Environment variable management
-- CORS
-- Node.js
+- Azure CLI
+
+### DevOps
+
+- Git and GitHub
+- GitHub Actions
+- CI/CD pipeline implementation
+- YAML workflows
+- OIDC federation
+- Passwordless cloud authentication
+- Deployment troubleshooting
+
+### Terraform
+
+- Terraform configuration files
+- AzureRM provider
+- `terraform init`
+- `terraform fmt`
+- `terraform validate`
+- `terraform plan`
+- `terraform apply`
+- Terraform state
+- Terraform outputs
+- Resource dependencies
+- In-place infrastructure updates
+- Terraform lifecycle configuration
+- Protecting state files and secrets with `.gitignore`
+- Rebuilding existing cloud architecture using Infrastructure as Code
+
+### Development
+
 - JavaScript DOM manipulation
+- Arrays and objects
+- Dynamic rendering
+- Template literals
+- Form validation
 - Fetch API
-- HTTP requests
-- JSON
-- Local and production testing
-- Cloud deployment troubleshooting
+- Serverless API integration
+- Node.js Azure Functions
+
+### Troubleshooting
+
+I also gained practical experience diagnosing real cloud deployment problems rather than only following a predefined tutorial.
+
+This included authentication failures, RBAC permissions, Azure Storage deployment issues, Function discovery, CORS configuration, Terraform provider warnings, runtime upgrades and state-management considerations.
 
 ---
 
 ## 🔮 Future Improvements
 
-Planned improvements include:
+Possible future improvements include:
 
-- Infrastructure as Code using Terraform
-- Azure Monitor / Application Insights
-- Improved contact-form error handling
-- Loading state while messages are being sent
-- Automated testing
-- Updated architecture documentation
-- Additional project screenshots
-- Further responsive design improvements
+- Azure Key Vault for improved secret management
+- Azure Monitor and Application Insights
+- Remote Terraform state using Azure Storage
+- Terraform modules
+- Automated Terraform CI/CD
+- Custom domain
+- HTTPS/CDN configuration through Azure Front Door
+- Additional automated testing
+
+These improvements are intentionally left for future projects so that additional Azure and DevOps services can be explored independently.
 
 ---
 
 ## 🎯 Project Purpose
 
-This project forms part of my practical Cloud & DevOps portfolio and demonstrates skills relevant to entry-level opportunities in:
+This project forms part of my practical Cloud & DevOps engineering portfolio.
+
+It demonstrates the progression from:
+
+```text
+Manual Cloud Deployment
+        ↓
+Application Development
+        ↓
+Serverless Integration
+        ↓
+CI/CD Automation
+        ↓
+Cloud Security
+        ↓
+Infrastructure as Code
+        ↓
+End-to-End Terraform Deployment
+```
+
+The project supports my development towards entry-level opportunities in:
 
 - Cloud Engineering
 - DevOps Engineering
@@ -494,6 +546,5 @@ This project forms part of my practical Cloud & DevOps portfolio and demonstrate
 
 **Bushra Alia**
 
-Cloud & DevOps Engineer  
 AWS Certified Solutions Architect – Associate  
 AWS Certified Cloud Practitioner
