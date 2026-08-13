@@ -3,3 +3,18 @@
 Thumbs.db
 .env
 *.tfstate
+# Terraform local files
+**/.terraform/*
+*.tfstate
+*.tfstate.*
+*.tfvars
+*.tfvars.json
+crash.log
+crash.*.log
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+
+# Azure Functions local settings / secrets
+local.settings.json

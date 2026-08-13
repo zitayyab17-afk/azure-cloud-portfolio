@@ -149,7 +149,7 @@ if(nameInput.value.trim() === ""){
         message: messageInput.value.trim()
     };
     const response = await fetch(
-        "https://func-azure-portfolio-contact-b001-d8a4cxdkbhcsbza6.ukwest-01.azurewebsites.net/api/ContactFormFunction",
+        "https://func-terraform-portfolio-b001.azurewebsites.net/api/contactformfunction",
         {
             method: "POST",
             headers: {
