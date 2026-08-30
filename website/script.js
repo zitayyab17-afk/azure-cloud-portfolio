@@ -5,7 +5,7 @@ const skills = [
     "Docker",
     "Kubernetes",
     "Git",
-    "Javascript",
+    "JavaScript",
     "Linux"
 ];
 const skillsList = document.querySelector("#skills-list");
@@ -18,24 +18,52 @@ skills.forEach(function(skill){
 const projects = [
     {
         name: "Azure Cloud Portfolio",
-        description: "Built and Deploy a Cloud portfolio on Microsoft Azure with CI/CD and a serverless Contact Form that send message directly to my email",
+        description: "Built and deployed a cloud portfolio on Microsoft Azure with CI/CD and a serverless contact form that sends messages directly to my email.",
          services: [
         "Azure Storage",
         "Azure Static Website Hosting",
-        "Azure Function",
+        "Azure Functions",
         "Azure Communication Services",
-        "Application insight",
+        "Application insights",
         "GitHub Actions",
         "Azure CLI",
         "Microsoft Entra ID",
         "Azure RBAC",
         "OIDC",
-        "JavaScrips",
+        "JavaScrip",
         "Node.js"
     ],
         status: "Completed",
         githubLink: "https://github.com/zitayyab17-afk/azure-cloud-portfolio.git",
         liveLink: "https://stazureportfoliob001.z33.web.core.windows.net/"
+    },
+
+    {
+    name: "Highly Available Azure Web Infrastructure",
+    description: "Designed and deployed highly available web infrastructure on Microsoft Azure using load-balanced Linux virtual machines, secure networking, Terraform Infrastructure as Code and GitHub Actions CI/CD with OIDC authentication.",
+    services: [
+        "Azure Virtual Machines",
+        "Azure Virtual Network",
+        "Azure Subnets",
+        "Network Security Groups",
+        "Azure Standard Load Balancer",
+        "Backend Pools",
+        "Health Probes",
+        "Availability Set",
+        "Azure Monitor",
+        "Linux",
+        "Nginx",
+        "Terraform",
+        "Azure Storage",
+        "Terraform Remote State",
+        "GitHub Actions",
+        "Microsoft Entra ID",
+        "Azure RBAC",
+        "OIDC"
+    ],
+    status: "Completed",
+    githubLink: "https://github.com/zitayyab17-afk/azure-high-availability-web-infrastructure",
+    liveLink: ""
     },
 
     {
@@ -67,7 +95,7 @@ const projects = [
             "Amazon DynamoDB",
             "Terraform"
         ],
-        status: "InProgress",
+        status: "Completed",
         githubLink: "https://github.com/zitayyab17-afk/project2-serverless-api.git",
         liveLink:""
     }
@@ -133,7 +161,7 @@ if(nameInput.value.trim() === ""){
     }
     const subjectInput = document.querySelector("#subject")
     if(subjectInput.value.trim() === ""){
-        alert("Please Entre Subject");
+        alert("Please Enter Subject");
     return;
     }
     const messageInput = document.querySelector("#message")
